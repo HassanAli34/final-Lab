@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="final" default="compile" basedir=".">
+
+	
+	<property name="final" value="/apache-tomcat-5.5.20" />
+
+		<path id="project-classpath">
+			<fileset dir="web/WEB-INF/lib" includes="*.jar" />
+			<fileset dir="${final}/bin" includes="*.jar" />
+			<fileset dir="${final}/common/lib" includes="*.jar" />
+			<fileset dir="${final}/server/lib" includes="*.jar" />
+		</path>
+
+		<target name="clean">
+			<delete dir="bin" />
+			<mkdir dir="bin" />
+		</target>
+
+		<target name="copy-non-java-files">
+			<copy todir="bin" includeemptydirs="false">
+				<fileset dir="src" excludes="**/*.java" />
+			</copy>
+		</target>
+
+		<target name="compile" depends="clean,copy-non-java-files">
+			<javac srcdir="src" destdir="bin" classpathref="project-classpath" />
+		</target>
+   
+</project>
